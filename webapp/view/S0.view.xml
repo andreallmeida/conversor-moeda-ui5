@@ -1,0 +1,77 @@
+<mvc:View controllerName="alca.conversor-moeda-ui5.controller.S0" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core"
+	xmlns:form="sap.ui.layout.form" displayBlock="true" xmlns="sap.m">
+	<Shell id="shell">
+		<App id="app">
+			<pages>
+				<Page id="page" title="{i18n>title}">
+					<content>
+						<form:SimpleForm>
+							<Label text="Moeda Origem"/>
+							<Select items="{input>/moedaOrigem}" selectedKey="{input>/moedaOrigemSelecionada}">
+								<items>
+									<core:Item key="{input>key}" text="{input>text}"/>
+								</items>
+							</Select>
+							<Label text="Moeda Destino"/>
+							<Select items="{input>/moedaDestino}" selectedKey="{input>/moedaDestinoSelecionada}">
+								<items>
+									<core:Item key="{input>key}" text="{input>text}"/>
+								</items>
+							</Select>
+							<Label text="Data Conversão"/>
+							<DatePicker required="true" displayFormatType="" value="{ path: 'input>/dateConversion', type : 'sap.ui.model.type.Date'}"/>
+							<Button icon="sap-icon://search" text="Convert" press="onConvertPress"/>
+						</form:SimpleForm>
+						<Table items="{output>/convertedData}">
+							<columns>
+								<Column>
+									<Text text="Origem"/>
+								</Column>
+								<Column>
+									<Text text="Destino"/>
+								</Column>
+								<Column>
+									<Text text="Valor"/>
+								</Column>
+								<Column>
+									<Text text="Data"/>
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem>
+									<cells>
+										<Text text="{output>convOrigem}"/>
+										<Text text="{output>convDestino}"/>
+										<Text text="{output>convValor}"/>
+										<Text text="{output>convData}"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+						<!--<form:Form>-->
+						<!--	<form:formContainers>-->
+						<!--		<form:FormContainer>-->
+						<!--			<form:FormElement>-->
+						<!--				<Label text="Moeda Origem"/>-->
+						<!--				<Select items="{/moedaOrigem}">-->
+						<!--					<items>-->
+						<!--						<core:Item key="{key}" text="{text}"/>-->
+						<!--					</items>-->
+						<!--				</Select>-->
+						<!--				<Label text="Moeda Destino"/>-->
+						<!--				<Select items="{/moedaDestino}">-->
+						<!--					<items>-->
+						<!--						<core:Item key="{key}" text="{text}"/>-->
+						<!--					</items>-->
+						<!--				</Select>-->
+						<!--				<Button icon="sap-icon://search" text="Convert" press="onConvertPress"/>-->
+						<!--			</form:FormElement>-->
+						<!--		</form:FormContainer>-->
+						<!--	</form:formContainers>-->
+						<!--</form:Form>-->
+					</content>
+				</Page>
+			</pages>
+		</App>
+	</Shell>
+</mvc:View>
