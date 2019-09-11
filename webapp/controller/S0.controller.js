@@ -23,7 +23,7 @@ sap.ui.define([
 					key: 'BRL',
 					text: 'Real'
 				}],
-				moedaOrigemSelecionada: "EUR",
+				moedaOrigemSelecionada: "USD",
 
 				moedaDestino: [{
 					key: 'EUR',
@@ -35,10 +35,10 @@ sap.ui.define([
 					key: 'BRL',
 					text: 'Real'
 				}],
-				moedaDestinoSelecionada: "USD",
+				moedaDestinoSelecionada: [],
 
 				dateConversion: new Date()
-				
+
 			};
 
 			// Generate new JSON Model (input)
@@ -65,18 +65,23 @@ sap.ui.define([
 				var oNewRecord = {};
 				var sMoedaOrigem = this._oModel.getProperty("/moedaOrigemSelecionada");
 				var sMoedaDestino = this._oModel.getProperty("/moedaDestinoSelecionada");
-				
-				oNewRecord.convOrigem = sMoedaOrigem;
-				oNewRecord.convDestino = sMoedaDestino;
-				oNewRecord.convValor = this._oModelOutput.getData().rates[sMoedaDestino];
-				oNewRecord.convData = this._oModelOutput.getData().date;
-				aNewRecords.push(oNewRecord);
+
+				// Monta String de Symbols para processamento
+				for (var i = 0; i < sMoedaDestino.length; i++) {
+
+					oNewRecord.convOrigem = sMoedaOrigem;
+					oNewRecord.convDestino = sMoedaDestino[i];
+					oNewRecord.convValor = this._oModelOutput.getData().rates[sMoedaDestino[i]];
+					oNewRecord.convData = this._oModelOutput.getData().date;
+					aNewRecords.push(oNewRecord);
+					oNewRecord = {};
+				}
 
 				// Erro no Processamento	
 			} else {
-				
-				MessageBox.alert("Erro na API");
-				
+
+				MessageBox.error("Erro na API");
+
 			}
 
 			this._oModelOutput.setProperty("/convertedData", aNewRecords);
@@ -85,12 +90,29 @@ sap.ui.define([
 		onConvertPress: function (oControlEvent) {
 
 			var sMoedaOrigem = this._oModel.getProperty("/moedaOrigemSelecionada");
-			var sMoedaDestino = this._oModel.getProperty("/moedaDestinoSelecionada");
+			var aMoedaDestino = this._oModel.getProperty("/moedaDestinoSelecionada");
+
+			if (aMoedaDestino.length <= 0){
+				MessageBox.error("Selecionar ao menos uma Moeda Destino");
+			}
+
+			var sSymbols = "";
+
+			// Monta String de Symbols para processamento
+			for (var i = 0; i < aMoedaDestino.length; i++) {
+
+				if (sSymbols === "") {
+					sSymbols = aMoedaDestino[i];
+				} else {
+					sSymbols = sSymbols + "," + aMoedaDestino[i];
+				}
+
+			}
 
 			// Objeto para Parametros de URL
 			var oParam = {};
 			oParam.base = sMoedaOrigem;
-			oParam.symbols = sMoedaDestino;
+			oParam.symbols = sSymbols;
 
 			var sPrefix = "/CurrencyApi/";
 			var sDate = this._oModel.getProperty("/dateConversion");

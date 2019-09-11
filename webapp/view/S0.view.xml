@@ -13,11 +13,11 @@
 								</items>
 							</Select>
 							<Label text="Moeda Destino"/>
-							<Select items="{input>/moedaDestino}" selectedKey="{input>/moedaDestinoSelecionada}">
+							<MultiComboBox placeholder="Moeda Destino" required="true" items="{input>/moedaDestino}" selectedKeys="{input>/moedaDestinoSelecionada}">
 								<items>
 									<core:Item key="{input>key}" text="{input>text}"/>
 								</items>
-							</Select>
+							</MultiComboBox>
 							<Label text="Data Conversão"/>
 							<DatePicker required="true" displayFormatType="" value="{ path: 'input>/dateConversion', type : 'sap.ui.model.type.Date'}"/>
 							<Button icon="sap-icon://search" text="Convert" press="onConvertPress"/>
