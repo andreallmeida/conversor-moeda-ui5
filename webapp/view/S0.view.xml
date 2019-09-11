@@ -48,27 +48,6 @@
 								</ColumnListItem>
 							</items>
 						</Table>
-						<!--<form:Form>-->
-						<!--	<form:formContainers>-->
-						<!--		<form:FormContainer>-->
-						<!--			<form:FormElement>-->
-						<!--				<Label text="Moeda Origem"/>-->
-						<!--				<Select items="{/moedaOrigem}">-->
-						<!--					<items>-->
-						<!--						<core:Item key="{key}" text="{text}"/>-->
-						<!--					</items>-->
-						<!--				</Select>-->
-						<!--				<Label text="Moeda Destino"/>-->
-						<!--				<Select items="{/moedaDestino}">-->
-						<!--					<items>-->
-						<!--						<core:Item key="{key}" text="{text}"/>-->
-						<!--					</items>-->
-						<!--				</Select>-->
-						<!--				<Button icon="sap-icon://search" text="Convert" press="onConvertPress"/>-->
-						<!--			</form:FormElement>-->
-						<!--		</form:FormContainer>-->
-						<!--	</form:formContainers>-->
-						<!--</form:Form>-->
 					</content>
 				</Page>
 			</pages>
